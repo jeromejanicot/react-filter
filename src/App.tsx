@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import ArticlesView from "./views/ArticlesView";
 

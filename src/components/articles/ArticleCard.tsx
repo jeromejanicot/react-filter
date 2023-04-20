@@ -7,15 +7,11 @@ interface Props {
 
 const ArticleCard = ({ article }: Props) => {
   return (
-    <div className={"card"}>
-      <div className={"card_content"}>
-        <div>
-          <h3 className={"article_card_title"}>{article.title}</h3>
-        </div>
-        <div className={"article_card_date"}>{article.date.toUTCString()}</div>
-        <div className={"article_card_preview"}>{article.description}</div>
+    <div className={"card_container"}>
+      <div className="card_content">
+        <h3 className={"card_title"}>{article.title}</h3>
+        <div className={"card_date"}>{article.date.toISOString()}</div>
       </div>
-      <span className={"divider"}></span>
     </div>
   );
 };

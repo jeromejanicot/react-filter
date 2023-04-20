@@ -1,6 +1,6 @@
-import { SlugItemType } from '../types/types';
+import { ItemType } from '../types/types';
 
-export function paginateData(data: SlugItemType[], perPage: number): any[][] {
+export function paginateData(data: ItemType[], perPage: number): ItemType[][] {
     const sourceLength = data.length;
     const arraysAmount = Math.ceil(data.length / perPage);
     const paginatedArray = Array(arraysAmount);

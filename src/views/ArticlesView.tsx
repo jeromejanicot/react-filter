@@ -53,7 +53,16 @@ export default function ArticlesView() {
 
   return pageData && pageData[page] ? (
     <div>
-      <div className="max-w-5xl flex">
+      <div className={"filter_navigation_container"}>
+        <FilterComponent
+          setDate={setDate}
+          filtersList={filtersList}
+          activeFilters={filters}
+          addTags={addTags}
+          rmTags={rmTags}
+        />
+      </div>
+      <div className="item_container">
         <div className={"article_card_container"}>
           {pageData[page]?.map((article, index) => (
             <div key={index}>
@@ -61,48 +70,36 @@ export default function ArticlesView() {
             </div>
           ))}
         </div>
-        <div className={"filter_navigation_container"}>
-          <FilterComponent
-            setDate={setDate}
-            filtersList={filtersList}
-            activeFilters={filters}
-            addTags={addTags}
-            rmTags={rmTags}
-          />
-
-          <PageNav
-            length={length}
-            page={page}
-            setPage={setPage}
-            increasePage={increasePage}
-            decreasePage={decreasePage}
-          />
-        </div>
+        <PageNav
+          length={length}
+          page={page}
+          setPage={setPage}
+          increasePage={increasePage}
+          decreasePage={decreasePage}
+        />
       </div>
     </div>
   ) : (
-    <div className={"articles_page_container"}>
-      <div className={"cards_filters_container"}>
-        <div className={"article_card_container"}>
-          <h1>No articles found</h1>
-        </div>
-        <div className={"filter_navigation_container"}>
-          <FilterComponent
-            setDate={setDate}
-            filtersList={filtersList}
-            activeFilters={filters}
-            addTags={addTags}
-            rmTags={rmTags}
-          />
-          <PageNav
-            length={length}
-            page={page}
-            setPage={setPage}
-            increasePage={increasePage}
-            decreasePage={decreasePage}
-          />
-        </div>
+    <div>
+      <div className={"filter_navigation_container"}>
+        <FilterComponent
+          setDate={setDate}
+          filtersList={filtersList}
+          activeFilters={filters}
+          addTags={addTags}
+          rmTags={rmTags}
+        />
       </div>
+      <div className={"article_card_container"}>
+        <h1>No articles matching specified filters</h1>
+      </div>
+      <PageNav
+        length={length}
+        page={page}
+        setPage={setPage}
+        increasePage={increasePage}
+        decreasePage={decreasePage}
+      />
     </div>
   );
 }

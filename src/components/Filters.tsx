@@ -18,8 +18,8 @@ export default function FilterComponent({
 }: Props) {
   return (
     <div className={"filter_section_container"}>
+      <h3>Date</h3>
       <div className={"filter_section"}>
-        <h3>Date</h3>
         <input
           type="radio"
           id="newest"
@@ -29,42 +29,40 @@ export default function FilterComponent({
           onClick={() => setDate(true)}
           className={"tag"}
         />
-        <label htmlFor="newest" className={"radio_ns styles.radio_s1"}>
+        <label htmlFor="newest" className={"filter_button radio_s1"}>
           newest
         </label>
         <input
-          onClick={() => setDate(false)}
           type="radio"
           id="oldest"
           name="date"
           value="oldest"
+          onClick={() => setDate(false)}
           className={"tag"}
         />
-        <label htmlFor="oldest" className={"radio_ns radio_s1"}>
+        <label htmlFor="oldest" className={"filter_button radio_s2"}>
           oldest
         </label>
       </div>
+      <h3>Tags</h3>
       <div className={"filter_section"}>
-        <h3>Tags</h3>
-        <>
-          {filtersList.map((tag, index) => (
-            <div key={index}>
-              <input
-                onClick={() =>
-                  activeFilters.includes(tag) ? rmTags(tag) : addTags(tag)
-                }
-                type="checkbox"
-                id={tag}
-                name="tags"
-                value={tag}
-                className={"tag"}
-              />
-              <label htmlFor={tag} className={"filter_checkbox"}>
-                {tag}
-              </label>
-            </div>
-          ))}
-        </>
+        {filtersList.map((tag, index) => (
+          <div key={index}>
+            <input
+              onClick={() =>
+                activeFilters.includes(tag) ? rmTags(tag) : addTags(tag)
+              }
+              type="checkbox"
+              id={tag}
+              name="tags"
+              value={tag}
+              className={"tag"}
+            />
+            <label htmlFor={tag} className={"filter_button"}>
+              {tag}
+            </label>
+          </div>
+        ))}
       </div>
     </div>
   );
