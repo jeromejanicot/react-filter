@@ -36,7 +36,7 @@ const PageNav = ({
       <div>{page + 1}</div>
       <button
         type="button"
-        disabled={page === 0 ? true : false}
+        disabled={page === length - 1 ? true : false}
         className={"nav-option nav-button"}
         onClick={() => increasePage()}
       >
@@ -44,7 +44,7 @@ const PageNav = ({
       </button>
       <button
         type="button"
-        disabled={page === 0 ? true : false}
+        disabled={page === length - 1 ? true : false}
         className={"nav-option nav-button"}
         onClick={() => setPage(length - 1)}
       >

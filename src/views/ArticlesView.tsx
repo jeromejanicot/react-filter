@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState } from "react";
 import FilterComponent from "../components/Filters";
 import ArticleCard from "../components/articles/ArticleCard";
 import PageNav from "../components/PageNav";
-import { dateSorter, checkboxClean } from "../lib/filterUtils";
-import { paginateData } from "../lib/getPagination";
+import { useFilter } from "../lib/filterUtils";
 import { articleStore } from "../components/articles/ArticlesStore";
 import { filler } from "../const";
 import type { Filters, ItemType } from "../types/types";
@@ -27,29 +26,7 @@ export default function ArticlesView() {
     filters,
   } = articleStore();
 
-  const memoDateSorted = useMemo(
-    () => dateSorter(fillerData, date),
-    [fillerData, date]
-  );
-
-  const memoFilterSorted = useMemo(
-    () =>
-      memoDateSorted.filter((article) =>
-        filters.every((filter) => article.tags.includes(filter))
-      ),
-    [memoDateSorted, filters]
-  );
-
-  const memoPages = useMemo(
-    () => Math.ceil(memoFilterSorted.length / perPage),
-    [memoFilterSorted, perPage]
-  );
-
-  useEffect(() => {
-    window.addEventListener("beforeunload", checkboxClean);
-    setPageData(paginateData(memoFilterSorted, perPage));
-    setLength(memoPages);
-  }, [memoFilterSorted, perPage, memoPages]);
+  useFilter(fillerData, date, filters, perPage, setPageData, setLength);
 
   return pageData && pageData[page] ? (
     <div>

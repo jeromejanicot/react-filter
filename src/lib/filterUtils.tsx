@@ -34,20 +34,20 @@ export const useFilter = (
   date: boolean,
   filters: Filters[],
   perPage: number,
-  setPageData: (arg: any) => void,
+  setPageData: (arg: ItemType[][]) => void,
   setLength: (arg: number) => void
 ) => {
-  const memoFilterSorted = useMemo(
-    () =>
-      allItems.filter((project) =>
-        filters.every((filter) => project.tags.includes(filter))
-      ),
-    [allItems, filters]
+  const memoDateSorted = useMemo(
+    () => dateSorter(allItems, date),
+    [allItems, date]
   );
 
-  const memoDateSorted = useMemo(
-    () => dateSorter(memoFilterSorted, date),
-    [memoFilterSorted, date]
+  const memoFilterSorted = useMemo(
+    () =>
+      memoDateSorted.filter((article) =>
+        filters.every((filter) => article.tags.includes(filter))
+      ),
+    [memoDateSorted, filters]
   );
 
   const memoPages = useMemo(
@@ -57,7 +57,7 @@ export const useFilter = (
 
   useEffect(() => {
     window.addEventListener("beforeunload", checkboxClean);
-    setPageData(paginateData(memoDateSorted, perPage));
+    setPageData(paginateData(memoFilterSorted, perPage));
     setLength(memoPages);
-  }, [memoDateSorted, perPage, memoPages]);
+  }, [memoFilterSorted, perPage, memoPages]);
 };
